@@ -14,6 +14,7 @@ class SuppliesController < ApplicationController
     # make a get request to '/supplies'
     
     get '/supplies' do 
+      @supplies = Supply.all
      erb :'supplies/index'
     end 
 

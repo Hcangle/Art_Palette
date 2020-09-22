@@ -1,0 +1,6 @@
+<h1>Supplies</h1>
+
+<% @supplies.each do |supply| %>
+  <h2><%= supply.name %> </h2>
+  <img src ="<%= supply.image%>" alt="supply"> 
+  <% end %>

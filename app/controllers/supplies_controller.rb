@@ -21,6 +21,11 @@ class SuppliesController < ApplicationController
   # Show
     # make a get request to 'supplies/id'
 
+    get '/supplies/:id' do 
+      @supply = Supplies.find(params["id"])
+      erb :'supplies/show'
+    end 
+
 #UPDATE
 
   # Edit 

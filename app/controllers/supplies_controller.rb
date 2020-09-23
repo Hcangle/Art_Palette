@@ -4,10 +4,27 @@ class SuppliesController < ApplicationController
   
   # New 
     # make a get request to '/supplies/new'
+
+    
+    get '/supplies/new' do 
+        erb :'/supplies/new'
+    end 
+
   
   # Create
     # make a post request to '/supplies'
-
+    post '/supplies' do 
+      supply = Supply.new(params)
+      if !supply.name.empty?
+        supply.save
+        # take user to supply index page 
+        redirect '/supplies'
+      else 
+        # rerender the form
+        @error = "Data invalid. Please input name of supply."
+        erb :'/supplies/new'
+     end 
+    end
 #READ
   
   # Index
@@ -22,7 +39,7 @@ class SuppliesController < ApplicationController
     # make a get request to 'supplies/id'
 
     get '/supplies/:id' do 
-      @supply = Supplies.find(params["id"])
+      @supply = Supply.find(params["id"])
       erb :'supplies/show'
     end 
 

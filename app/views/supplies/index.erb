@@ -1,5 +1,5 @@
 <h1>Supplies</h1>
-
+<a href="/supplies/new">Enter a Supply</a>
 <% @supplies.each do |supply| %>
   <h2><a href="/supplies/<%= supply.id %>"><%= supply.name %></a> </h2>
   <img src="<%= supply.image %>"" alt="supply"> 

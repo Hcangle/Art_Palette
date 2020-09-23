@@ -31,7 +31,7 @@ class SuppliesController < ApplicationController
     # make a get request to '/supplies'
     
     get '/supplies' do 
-      @supplies = Supply.all
+      @supplies = Supply.all.reverse
      erb :'supplies/index'
     end 
 

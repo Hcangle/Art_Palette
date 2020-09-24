@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200921195802) do
+ActiveRecord::Schema.define(version: 20200924170953) do
 
   create_table "supplies", force: :cascade do |t|
     t.string  "name"
-    t.string  "image"
+    t.string  "brand"
+    t.string  "image",   default: "https://thumbs.dreamstime.com/b/creative-art-work-accessories-tools-supplies-set-messy-desk-paint-brushes-paintbox-watercolors-crayons-pencils-brown-wooden-140144701.jpg"
     t.integer "user_id"
   end
 

@@ -1,5 +1,14 @@
 class SuppliesController < ApplicationController
 
+  get '/supplies' do
+    if logged_in?
+      @supplies = Supply.all.reverse
+      erb :'supplies/index'
+    else
+      redirect to '/login'
+    end
+  end
+  
   #CREATE
     
     # New 
@@ -7,41 +16,49 @@ class SuppliesController < ApplicationController
   
       
       get '/supplies/new' do 
+        if logged_in?
           erb :'/supplies/new'
+        else 
+          redirect to '/login'
+        end 
       end 
   
     
     # Create
       # make a post request to '/supplies'
       post '/supplies' do 
+      if logged_in?
         supply = Supply.new(params)
-        if !supply.name.empty?
+        if !supply.name.empty? && !supply.brand.empty?
           supply.save
           # take user to supply index page 
           redirect '/supplies'
         else 
           # rerender the form
-          @error = "Data invalid. Please input name of supply."
+          @error = "Data invalid. Please input data correctly."
           erb :'/supplies/new'
        end 
-      end
-  #READ
-    
-    # Index
-      # make a get request to '/supplies'
       
-      get '/supplies' do 
-        @supplies = Supply.all.reverse
-       erb :'supplies/index'
-      end 
+      else 
+        redirect to '/login'
+      end
+    end
+    
+  #READ
+      
   
     # Show
       # make a get request to 'supplies/id'
   
       get '/supplies/:id' do 
-        @supply = Supply.find(params["id"])
+       if logged_in?
+        @supply = Supply.find_by_id(params[:id])
         erb :'supplies/show'
+       else 
+        redirect to '/login'
       end 
+     end 
+      
   
   #UPDATE
   
@@ -49,19 +66,54 @@ class SuppliesController < ApplicationController
       # make a get request to '/supplies/:id/edit'
   
       get '/supplies/:id/edit' do 
-        @supply = Supply.find(params["id"])
+       if logged_in?
+        @supply = Supply.find_by_id(params[:id])
+        if @supply && @supply.user == current_user
         erb :'/supplies/edit'
+        else 
+          redirect to '/supplies'
+        end
+      else 
+        redirect to '/login'
       end 
+    end
 
 
     # Update
       # make a put(replaces all attributes) or a patch(replaces one or more atributes) request to '/supplies/:id'
   
       patch '/supplies/:id' do 
-      
-     end
+      if logged_in? 
+        if params[:content] == ""
+          redirect to "/supplies/#{params[:id]}/edit"
+        else
+          @supply = Supply.find_by_id(params[:id])
+          if @supply && @supply.user == current_user
+            if @supply.update(content: params[:content])
+              redirect to "/supplies/#{@supply.id}"
+            else
+              redirect to "/supplies/#{@supply.id}/edit"
+            end
+          else
+            redirect to '/supplies'
+          end
+        end
+      else
+        redirect to '/login'
+      end
+    end
   #DESTROY
   
     # make a delete request to '/supplies'
-  
-  end 
+    delete '/supples/:id/delete' do
+      if logged_in?
+        @supply = Supply.find_by_id(params[:id])
+        if @supply && @supply.user == current_user
+          @supply.delete
+        end
+        redirect to '/supplies'
+      else
+        redirect to '/login'
+      end
+    end
+  end

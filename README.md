@@ -1,7 +1,7 @@
-#Welcome!
+# Welcome!
 A place for artists(especially hoarders like me) to keep track of their many art supplies! 
 
-#Installation
+# Installation
 
 * Download or clone this repository
 * cd into the art-palette directory

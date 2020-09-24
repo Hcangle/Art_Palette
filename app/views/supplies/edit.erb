@@ -3,10 +3,10 @@
 <form action="/supplies/<%=@supply.id%>" method="post">
     <input type="hidden" name="_method" value="_patch">
     <label>Name</label>
-    <input type="text" name="name" value="<%= @supply.name %>">
+    <input type="text" name="supply[name]" value="<%= @supply.name %>">
     <label>Brand</label>
-    <input type="text" name="brand" value="<%= @supply.brand %>">
+    <input type="text" name="supply[brand]" value="<%= @supply.brand %>">
     <label>Image URL</label>
-    <input type="text" name="image" value="<%= @supply.image %>">
+    <input type="text" name="supply[image]" value="<%= @supply.image %>">
     <button type="submit">Edit Supply</button>
 </form>

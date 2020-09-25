@@ -29,7 +29,7 @@ class SuppliesController < ApplicationController
         @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand])
         
          if @supplies.save
-        
+        binding.pry
           #erb :'/supplies/show'
           redirect to "/supplies/#{@supplies.id}"
         else 
@@ -83,7 +83,8 @@ class SuppliesController < ApplicationController
         else
           @supplies = Supply.find_by_id(params[:id])
           if @supplies && @supplies.user == current_user
-            if @supplies.update(name: params[:name], brand: params[:brand])
+            if @supplies.update(name: params[:supplies][:name], brand: params[:supplies][:brand])
+              
               redirect to "/supplies/#{@supplies.id}"
             else
               redirect to "/supplies/#{@supplies.id}/edit"

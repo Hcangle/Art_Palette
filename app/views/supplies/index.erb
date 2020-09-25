@@ -4,8 +4,8 @@
 
     
     <% @supplies.each do |supply| %>
-       <h1> <%= supply.name %> </h1>
-           
+        
+         <a href="/supplies/<%=supply.id%>"> <%=supply.name %> </a>
 <% end %>
 <br>
 
@@ -15,7 +15,7 @@
  <a href="/supplies/new"> Add new supply</a>
 
  
- <form action="/logout" method="post">
+ <form action="/logout" method="get">
 <button>Log Out</button> 
  </form> 
 

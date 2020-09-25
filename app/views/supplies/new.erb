@@ -1,11 +1,11 @@
 <h1>Submit your Supply</h1>
-<p><%= @error %></p>
-<form action="/supplies" method="post">
-    <label>Name</label>
-    <input type="text" name="name">
+
+<form action="/supplies" method="POST">
+   <label>Name</label>
+    <input type="text" name="Name">
     <label>Brand</label>
-    <input type="text" name="brand">
+    <input type="text" name="Brand">
     <label>Image URL</label>
-    <input type="text" name="image">
+    <input type="text" name="Image">
     <button type="submit">Add Supply</button>
 </form>

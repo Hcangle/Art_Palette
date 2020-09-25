@@ -5,6 +5,7 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    set :method_override, true
     enable :sessions
     set :session_secret, "art_secret"
   end
@@ -12,6 +13,7 @@ class ApplicationController < Sinatra::Base
   get "/" do
     erb :welcome
   end
+  
   helpers do
 
     def logged_in?

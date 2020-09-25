@@ -1,9 +1,10 @@
 <h1>Login to Art Palette!</h1>
-<form method="post" action="/login">
-  <input type="text" name="username" placeholder="Username:">
-  <input type="text" name="password" placeholder="Password:">
 
-  <input type="submit" value="Submit">
+<br>
+<form action='/login' method="POST">
+<input type="text" name="username" value="<%= params[:username]%>" placeholder="Username:">
+<input type="password" name="password" placeholder="Password:">
+<input type="submit" value="Submit">
 </form>
 
 <br>

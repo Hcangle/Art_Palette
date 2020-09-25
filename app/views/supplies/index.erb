@@ -1,8 +1,25 @@
-<h1> Welcome, <%= current_user.username %></h1>
-<h2> Here are your Supplies </h2>
+<h1> Hello, <%= current_user.username %> ! </h1>
+<h2> Here are your Art Supplies! </h2>
 
 
+    
+    <% @supplies.each do |supply| %>
+        
+      
+        
+<% end %>
+<br>
 
+<br>
+ <form action="supplies/new" method="get">
+<button> Add New Supply </button> 
+ </form>
+ 
+ <br>
+ 
+ <form action="/logout" method="post">
+<button>Log Out</button> 
+ </form> 
 
 
 

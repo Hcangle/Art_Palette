@@ -1,12 +1,16 @@
-<h1>Edit Supply for <%= @supply.name %></h1>
-<p><%= @error %></p>
-<form action="/supplies/<%=@supply.id%>" method="post">
-    <input type="hidden" name="_method" value="_patch">
+<h1>Edit Supply for <%=@supplies.name %></h1>
+<form method="POST" action='/supplies/<%=@supplies.id%>' >
+    <input id="hidden" type="hidden" name="_method" value="patch" />
     <label>Name</label>
-    <input type="text" name="supply[name]" value="<%= @supply.name %>">
+    <input type="text" name="supplies[name]" placeholder="<%= @supplies.name %>">
     <label>Brand</label>
-    <input type="text" name="supply[brand]" value="<%= @supply.brand %>">
+    <input type="text" name="supplies[brand]" value="<%= @supplies.brand %>">
     <label>Image URL</label>
-    <input type="text" name="supply[image]" value="<%= @supply.image %>">
+    <input type="text" name="supplies[image]" value="<%= @supplies.image %>">
     <button type="submit">Edit Supply</button>
 </form>
+
+<form action="/supplies/<%=@supplies.id%>/delete" method="post">
+<input id="hidden" type="hidden" name="_method" value="delete">
+<button>Delete</button>
+

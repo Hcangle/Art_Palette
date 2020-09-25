@@ -2,14 +2,13 @@ class SuppliesController < ApplicationController
 
   get '/supplies' do
     if logged_in?
-      @supplies = Supply.all.reverse
+      @supplies = current_user.supplies
       erb :'supplies/index'
     else
       redirect to '/login'
     end
   end
   
-  #CREATE
     
     # New 
       # make a get request to '/supplies/new'
@@ -27,24 +26,17 @@ class SuppliesController < ApplicationController
     # Create
       # make a post request to '/supplies'
       post '/supplies' do 
-      if logged_in?
-        supply = Supply.new(params)
-        if !supply.name.empty? && !supply.brand.empty?
-          supply.save
-          # take user to supply index page 
-          redirect '/supplies'
+        @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand])
+        
+         if @supplies.save
+          redirect to '/supplies/#{@supplies.id}'
         else 
-          # rerender the form
-          @error = "Data invalid. Please input data correctly."
-          erb :'/supplies/new'
+         
+          redirect to '/supplies/new'
        end 
-      
-      else 
-        redirect to '/login'
       end
-    end
     
-  #READ
+  
       
   
     # Show
@@ -52,23 +44,22 @@ class SuppliesController < ApplicationController
   
       get '/supplies/:id' do 
        if logged_in?
-        @supply = Supply.find_by_id(params[:id])
-        erb :'supplies/show'
+        @supplies = Supply.find_by_id(params[:id])
+         erb :'supplies/show'
        else 
         redirect to '/login'
       end 
      end 
       
-  
-  #UPDATE
+
   
     # Edit 
       # make a get request to '/supplies/:id/edit'
   
       get '/supplies/:id/edit' do 
        if logged_in?
-        @supply = Supply.find_by_id(params[:id])
-        if @supply && @supply.user == current_user
+        @supplies = Supply.find_by_id(params[:id])
+        if @supplies && @supplies.user == current_user
         erb :'/supplies/edit'
         else 
           redirect to '/supplies'
@@ -84,15 +75,15 @@ class SuppliesController < ApplicationController
   
       patch '/supplies/:id' do 
       if logged_in? 
-        if params[:content] == ""
+        if params[:name] && params[:brand] == ""
           redirect to "/supplies/#{params[:id]}/edit"
         else
-          @supply = Supply.find_by_id(params[:id])
-          if @supply && @supply.user == current_user
-            if @supply.update(content: params[:content])
-              redirect to "/supplies/#{@supply.id}"
+          @supplies = Supply.find_by_id(params[:id])
+          if @supplies && @supplies.user == current_user
+            if @supplies.update(name: params[:name], brand: params[:brand])
+              redirect to "/supplies/#{@supplies.id}"
             else
-              redirect to "/supplies/#{@supply.id}/edit"
+              redirect to "/supplies/#{@supplies.id}/edit"
             end
           else
             redirect to '/supplies'
@@ -103,15 +94,16 @@ class SuppliesController < ApplicationController
       end
     end
   #DESTROY
-  
     # make a delete request to '/supplies'
-    delete '/supples/:id/delete' do
+
+    delete '/supplies/:id/delete' do
       if logged_in?
-        @supply = Supply.find_by_id(params[:id])
-        if @supply && @supply.user == current_user
-          @supply.delete
-        end
+        @supplies = Supply.find_by_id(params[:id])
+        if @supplies && @supplies.user == current_user
+          @supplies.delete
+        
         redirect to '/supplies'
+        end
       else
         redirect to '/login'
       end

@@ -29,6 +29,7 @@ class SuppliesController < ApplicationController
         @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand])
         
          if @supplies.save
+          #erb :'/supplies/show'
           redirect to '/supplies/#{@supplies.id}'
         else 
          
@@ -51,23 +52,24 @@ class SuppliesController < ApplicationController
       end 
      end 
       
-
+     #binding.pry
   
     # Edit 
       # make a get request to '/supplies/:id/edit'
   
       get '/supplies/:id/edit' do 
-       if logged_in?
+        if logged_in?
         @supplies = Supply.find_by_id(params[:id])
         if @supplies && @supplies.user == current_user
-        erb :'/supplies/edit'
+         erb :'/supplies/edit'
         else 
-          redirect to '/supplies'
+          erb :'/supplies/index'
+        #redirect to '/supplies'
         end
       else 
-        redirect to '/login'
+       redirect to '/login'
       end 
-    end
+   end
 
 
     # Update

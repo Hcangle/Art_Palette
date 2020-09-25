@@ -3,7 +3,7 @@ class SuppliesController < ApplicationController
   get '/supplies' do
     if logged_in?
       @supplies = current_user.supplies
-      erb :'supplies/index'
+      erb :'/supplies/index'
     else
       redirect to '/login'
     end
@@ -29,8 +29,9 @@ class SuppliesController < ApplicationController
         @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand])
         
          if @supplies.save
+        
           #erb :'/supplies/show'
-          redirect to '/supplies/#{@supplies.id}'
+          redirect to "/supplies/#{@supplies.id}"
         else 
          
           redirect to '/supplies/new'
@@ -46,7 +47,7 @@ class SuppliesController < ApplicationController
       get '/supplies/:id' do 
        if logged_in?
         @supplies = Supply.find_by_id(params[:id])
-         erb :'supplies/show'
+         erb :'/supplies/show'
        else 
         redirect to '/login'
       end 

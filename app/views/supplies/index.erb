@@ -4,18 +4,16 @@
 
     
     <% @supplies.each do |supply| %>
-        
-      
-        
+       <h1> <%= supply.name %> </h1>
+           
 <% end %>
 <br>
 
 <br>
- <form action="supplies/new" method="get">
-<button> Add New Supply </button> 
- </form>
  
- <br>
+
+ <a href="/supplies/new"> Add new supply</a>
+
  
  <form action="/logout" method="post">
 <button>Log Out</button> 

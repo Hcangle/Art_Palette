@@ -1,22 +1,18 @@
 <h1><%= @supplies.name %> </h1>
 <h2><%= @supplies.brand %> </h2>
-
-
+<form>
+<img src="<%= @supplies.image %>"/>
+</form>
 <a href="/supplies/<%=@supplies.id%>/edit">Edit Supply</a>
  
-
-<br>
-
- <form action="/supplies/<%=@supplies.id%>/delete" method="post">
- <input id="hidden" type="hidden" name="_method" value="delete">
- <button>Delete</button>
-
  <br>
- <br>
+ 
 <a href="/supplies">See all Supplies </a>
 
 
-
+<form action="/supplies/<%=@supplies.id%>/delete" method="post">
+ <input id="hidden" type="hidden" name="_method" value="delete">
+ <button>Delete</button>
 
 
 

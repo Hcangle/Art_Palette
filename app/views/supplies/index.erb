@@ -2,22 +2,26 @@
 <h2> Here are your Art Supplies! </h2>
 
 
+
+
     
     <% @supplies.each do |supply| %>
         
-         <a href="/supplies/<%=supply.id%>"> <%=supply.name %> </a>
-<% end %>
+         <a href="/supplies/<%=supply.id%>"> <%=supply.name %></a>
+        
+    <% end %>
+
+   
 <br>
 
 <br>
  
 
  <a href="/supplies/new"> Add new supply</a>
+<br>
+ <a href="/logout"> Logout</a>
 
- 
- <form action="/logout" method="get">
-<button>Log Out</button> 
- </form> 
+
 
 
 

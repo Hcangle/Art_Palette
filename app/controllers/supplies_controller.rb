@@ -29,7 +29,6 @@ class SuppliesController < ApplicationController
         @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand])
         
          if @supplies.save
-        binding.pry
           #erb :'/supplies/show'
           redirect to "/supplies/#{@supplies.id}"
         else 

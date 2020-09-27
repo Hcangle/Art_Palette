@@ -26,7 +26,7 @@ class SuppliesController < ApplicationController
     # Create
       # make a post request to '/supplies'
       post '/supplies' do 
-        @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand])
+        @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand], image: params[:image])
         
          if @supplies.save
           #erb :'/supplies/show'

@@ -7,10 +7,10 @@
     <input type="text" name="supplies[brand]" value="<%= @supplies.brand %>">
     <label>Image URL</label>
     <input type="text" name="supplies[image]" value="<%= @supplies.image %>">
-    <a href="/supplies/<%=@supplies.id%>/edit">Edit Supply</a>
 </form>
-
+<a href="/supplies">Edit </a>
 <br>
+
 <form action="/supplies/<%=@supplies.id%>/delete" method="post">
  <input id="hidden" type="hidden" name="_method" value="delete">
  <button>Delete</button>

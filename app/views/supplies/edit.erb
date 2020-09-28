@@ -7,8 +7,9 @@
     <input type="text" name="supplies[brand]" value="<%= @supplies.brand %>">
     <label>Image URL</label>
     <input type="text" name="supplies[image]" value="<%= @supplies.image %>">
+    <button>Edit</button>
 </form>
-<a href="/supplies">Edit </a>
+
 <br>
 
 <form action="/supplies/<%=@supplies.id%>/delete" method="post">

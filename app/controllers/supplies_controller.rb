@@ -26,14 +26,19 @@ class SuppliesController < ApplicationController
     # Create
       # make a post request to '/supplies'
       post '/supplies' do 
-        @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand], image: params[:image])
+        @supplies = current_user.supplies.build(name: params[:name], brand: params[:brand])
         
          if @supplies.save
+        
+          if params[:image] !="" 
+           @supplies.update(image: params[:image])
+           
+          end
           #erb :'/supplies/show'
           redirect to "/supplies/#{@supplies.id}"
         else 
-         
           redirect to '/supplies/new'
+        
        end 
       end
     
@@ -76,14 +81,16 @@ class SuppliesController < ApplicationController
       # make a put(replaces all attributes) or a patch(replaces one or more atributes) request to '/supplies/:id'
   
       patch '/supplies/:id' do 
+      
       if logged_in? 
         if params[:name] && params[:brand] == ""
           redirect to "/supplies/#{params[:id]}/edit"
         else
           @supplies = Supply.find_by_id(params[:id])
           if @supplies && @supplies.user == current_user
-            if @supplies.update(name: params[:supplies][:name], brand: params[:supplies][:brand])
-              
+            
+            if @supplies.update(name: params[:supplies][:name], brand: params[:supplies][:brand], image: params[:supplies][:image])
+              @supplies.save
               redirect to "/supplies/#{@supplies.id}"
             else
               redirect to "/supplies/#{@supplies.id}/edit"

@@ -83,26 +83,22 @@ class SuppliesController < ApplicationController
       patch '/supplies/:id' do 
       
       if logged_in? 
-        if params[:name] && params[:brand] == ""
-          redirect to "/supplies/#{params[:id]}/edit"
-        else
-          @supplies = Supply.find_by_id(params[:id])
-          if @supplies && @supplies.user == current_user
-            
-            if @supplies.update(name: params[:supplies][:name], brand: params[:supplies][:brand], image: params[:supplies][:image])
-              @supplies.save
-              redirect to "/supplies/#{@supplies.id}"
+           @supplies = Supply.find(params[:id])
+           if @supplies && @supplies.user == current_user
+              if @supplies.update(params[:supplies])
+               redirect to "/supplies/#{@supplies.id}"
             else
-              redirect to "/supplies/#{@supplies.id}/edit"
-            end
-          else
-            redirect to '/supplies'
-          end
-        end
-      else
+              @error= "Invalid entry. Please try again."
+               erb :"supplies/edit"
+             end
+           else
+            
+             redirect to '/supplies'
+           end
+       else
         redirect to '/login'
-      end
-    end
+       end
+     end
   #DESTROY
     # make a delete request to '/supplies'
 

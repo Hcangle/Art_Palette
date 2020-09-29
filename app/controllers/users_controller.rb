@@ -11,7 +11,8 @@ class UsersController < ApplicationController
     
       post '/signup' do
         if params[:username] == "" || params[:email] == "" || params[:password] == ""
-            erb :'/users/signup'
+           @error = "Data invalid. Please try again." 
+          erb :'/users/signup'
         else
           @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
           @user.save
@@ -35,6 +36,7 @@ class UsersController < ApplicationController
           session[:user_id] = user.id
           redirect to '/supplies'
         else
+          @error= "Invalid entry. Please try again."
           erb :'/users/login'
         end
       end
